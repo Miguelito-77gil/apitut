@@ -16,4 +16,27 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.get('/', (_req, res) => {
+  res.json({
+    status: 'success',
+    message: 'Application is running',
+    timestamp: new Date().toISOString(),
+  });
+});
+
+app.get('/api/health', (_req, res) => {
+  res.json({
+    status: 'success',
+    message: 'API is healthy',
+    timestamp: new Date().toISOString(),
+  });
+});
+
+app.use((_req, res) => {
+  res.status(404).json({
+    status: 'error',
+    message: 'Route not found',
+  });
+});
+
 export default app;
